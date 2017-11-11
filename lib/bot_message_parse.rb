@@ -1,6 +1,8 @@
 require './lib/command/ping'
 require './lib/command/version'
 require './lib/command/web'
+require './lib/command/command'
+
 class BotMessageParse
     attr_reader :bot
     attr_reader :message
@@ -13,15 +15,19 @@ class BotMessageParse
 
     def parse
         on /^\/ping@jpEEWBot[ ]?(.+)?/ do |a|
-          Ping.handle(bot, message, a)
+          Ping.handle(bot, a)
         end
 
         on /^\/version@jpEEWBot[ ]?(.+)?/ do |a|
-          Version.handle(bot, message, a)
+          Version.handle(bot, a)
         end
 
         on /^\/hibiki@jpEEWBot[ ]?(.+)?/ do |a|
-          Ping.handle(bot, message, a)
+          Ping.handle(bot, a)
+        end
+
+        on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
+          Command.handle(bot, a)
         end
 
         on(/(https?):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/) do |a|

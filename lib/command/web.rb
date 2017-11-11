@@ -1,5 +1,6 @@
 class Web
-    def self.handle(bot, message, a)
+    def self.handle(bot, a)
+        message = bot[:message]
         begin
             # url = message.text.match(/\/web@jpEEWBot (.*)/)[1]
             url = message.text.match(/(https?|ftp|file):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/)[0]
