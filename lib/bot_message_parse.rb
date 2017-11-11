@@ -31,7 +31,7 @@ class BotMessageParse
         end
 
         on(/(https?):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/) do |a|
-          Web.handle(bot, message, a)
+          Web.handle(bot, a)
         end
     end
 
