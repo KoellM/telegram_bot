@@ -1,7 +1,7 @@
 class BotMessageSender
     attr_reader :bot
     attr_reader :message
-    def initialize(bot, media)
+    def initialize(bot)
         @bot = bot[:bot]
         @message = bot[:message]
     end
