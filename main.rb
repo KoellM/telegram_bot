@@ -11,17 +11,17 @@ config = BotConfig.new
 logger = BotLogger.logger
 
 logger.info("EEW Telegram BOT. Version: #{BotConfig.version}")
-# loop do
-#   begin
+loop do
+  begin
     Telegram::Bot::Client.run(config.token) do |bot|
       bot.listen do |message|
         logger.info "[#{message.from.username}]: #{message.text}" 
         BotMessageParse.new({bot: bot, message: message})
       end
     end
-#   rescue => e
-#     logger.error(e.to_s)
-#   end
-#   puts "60秒后重连"
-#   sleep 60
-# end
+  rescue => e
+    logger.error(e.to_s)
+  end
+  puts "60秒后再连."
+  sleep 60
+end

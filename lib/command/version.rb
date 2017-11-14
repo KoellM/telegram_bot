@@ -1,5 +1,5 @@
 class Version
     def self.handle(bot, a)
-        BotMessageSender.new(bot, "EEW Telegram BOT(#{BotConfig.version})").send_message
+        BotMessageSender.new(bot).send_message("EEW Telegram BOT(#{BotConfig.version})")
     end
 end

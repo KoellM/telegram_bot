@@ -1,5 +1,5 @@
 class Ping
     def self.handle(bot, a)
-        BotMessageSender.new(bot, 'Pong').send_message
+        BotMessageSender.new(bot).send_message('Pong')
     end
 end

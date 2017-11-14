@@ -14,7 +14,7 @@ class Command
             rescue => e
               exit_status, output = 0, e.to_s
             end
-            BotMessageSender.new(bot, "[Command] 返回结果: #{output}(#{exit_status}).").send_message
+            BotMessageSender.new(bot).send_message("[Command] 返回结果: #{output}(#{exit_status}).")
           else
             # bot.api.send_message(chat_id: message.chat.id, text: "[Command] 無理.")
           end
