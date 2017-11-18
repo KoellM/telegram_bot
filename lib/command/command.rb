@@ -6,7 +6,7 @@ class Command
             return
         end
         if message.from.username == 'koell'
-            BotMessageSender.new(bot).send_message（"[Command] 已执行.")
+            BotMessageSender.new(bot).send_message("[Command] 已执行.")
             begin
               output = `#{message.text.match(/\/command@jpEEWBot (.*)/)[1]}`
               exit_status = $?
