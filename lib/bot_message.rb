@@ -7,10 +7,10 @@ class BotMessageSender
     end
 
     def send_message(text)
-        bot.api.send_message(chat_id: message.chat.id, text: media)
+        bot.api.send_message(chat_id: message.chat.id, text: text)
     end
 
     def send_photo(filename, type)
-        bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(filename, type))          
+        bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(filename, type))
     end
 end
