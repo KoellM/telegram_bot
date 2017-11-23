@@ -30,7 +30,7 @@ class BotMessageParse
 
         on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
           @list = []
-          BotMessageSender.new(bot).send_message("执行重载.")                    
+          BotMessageSender.new(bot).send_message("正在重载.")                    
           load './lib/bot_message.parse.rb'
         end
 
