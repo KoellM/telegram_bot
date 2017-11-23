@@ -1,7 +1,5 @@
-require './lib/command/ping'
-require './lib/command/version'
-require './lib/command/web'
-require './lib/command/command'
+require "find"
+Find.find('./lib/command') { |f| require f if !File.directory?(f) }
 
 class BotMessageParse
     attr_reader :bot
@@ -28,6 +26,13 @@ class BotMessageParse
 
         on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
           Command.handle(bot, a)
+        end
+
+        on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
+          @list = []
+          load './lib/bot_message.parse.rb'
+          Find.find('./lib/command') { |f| load f if File.directory?(f) }
+          BotMessageSender.new(bot).send_message("重载完成\n当前版本: #{BotConfig.version}.")          
         end
 
         on(/(https?):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/) do |a|

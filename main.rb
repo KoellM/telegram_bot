@@ -19,8 +19,8 @@ loop do
         BotMessageParse.new({bot: bot, message: message})
       end
     end
-  rescue => e
-    logger.error(e.to_s)
+  rescue Telegram::Bot::Exceptions::ResponseError
+    logger.error("ResponseError")
   end
   puts "60秒后再连."
   sleep 60
