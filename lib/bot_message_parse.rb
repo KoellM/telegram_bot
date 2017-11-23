@@ -24,13 +24,9 @@ class BotMessageParse
           Ping.handle(bot, a)
         end
 
-        on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
-          Command.handle(bot, a)
-        end
 
         on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
           @list = []
-          BotMessageSender.new(bot).send_message("正在重载.")                    
           load './lib/bot_message_parse.rb'
           BotMessageSender.new(bot).send_message("成功.")  
         end
