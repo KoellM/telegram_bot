@@ -31,7 +31,7 @@ class BotMessageParse
         on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
           @list = []
           BotMessageSender.new(bot).send_message("正在重载.")                    
-          load './lib/bot_message.parse.rb'
+          load './lib/bot_message_parse.rb'
         end
 
         on(/(https?):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/) do |a|
