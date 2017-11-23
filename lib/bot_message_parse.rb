@@ -32,6 +32,7 @@ class BotMessageParse
           @list = []
           BotMessageSender.new(bot).send_message("正在重载.")                    
           load './lib/bot_message_parse.rb'
+          BotMessageSender.new(bot).send_message("成功.")  
         end
 
         on(/(https?):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/) do |a|
