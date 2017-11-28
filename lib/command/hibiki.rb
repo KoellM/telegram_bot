@@ -8,7 +8,7 @@ class Hibiki
             return
         end
         begin
-            radio_name = a
+            radio_name = a[0]
             res = get_api("https://vcms-api.hibiki-radio.jp/api/v1/programs/#{radio_name}")
             infos = JSON.parse(res.body)
             episode_id = infos["episode"]["video"]["id"]
