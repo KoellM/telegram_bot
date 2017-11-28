@@ -22,7 +22,8 @@ class Hibiki
           end
           begin
             BotMessageSender.new(bot).send_message("[Hibiki] 搜索:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}, #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}" end }")
-          rescue
+          rescue => e
+            puts e.message
           end
     end
 
