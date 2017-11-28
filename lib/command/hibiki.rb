@@ -1,3 +1,5 @@
+require 'json'
+require 'mechanize'
 class Hibiki
     def self.handle(bot, a)
         message = bot[:message]
@@ -22,5 +24,18 @@ class Hibiki
             bot.api.send_message(chat_id: message.chat.id, text: "[Hibiki] 搜索:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}, #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}" end }")
           rescue
           end
+    end
+
+    private
+    @a = Mechanize.new
+    @a.user_agent_alias = 'Windows Chrome'
+    def get_api(url)
+      @a.get(
+        url,
+        [],
+        "http://hibiki-radio.jp/",
+        'X-Requested-With' => 'XMLHttpRequest',
+        'Origin' => 'http://hibiki-radio.jp'
+      )
     end
 end
