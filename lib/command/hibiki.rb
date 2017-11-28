@@ -25,17 +25,16 @@ class Hibiki
           rescue
           end
     end
-
-    private
-    @a = Mechanize.new
-    @a.user_agent_alias = 'Windows Chrome'
+    
     def get_api(url)
-      @a.get(
-        url,
-        [],
-        "http://hibiki-radio.jp/",
-        'X-Requested-With' => 'XMLHttpRequest',
-        'Origin' => 'http://hibiki-radio.jp'
-      )
+        @a = Mechanize.new
+        @a.user_agent_alias = 'Windows Chrome'
+        @a.get(
+            url,
+            [],
+            "http://hibiki-radio.jp/",
+            'X-Requested-With' => 'XMLHttpRequest',
+            'Origin' => 'http://hibiki-radio.jp'
+        )
     end
 end
