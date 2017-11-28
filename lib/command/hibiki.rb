@@ -25,8 +25,8 @@ class Hibiki
           rescue
           end
     end
-    
-    def get_api(url)
+
+    def self.get_api(url)
         @a = Mechanize.new
         @a.user_agent_alias = 'Windows Chrome'
         @a.get(
