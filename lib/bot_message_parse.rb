@@ -21,13 +21,16 @@ class BotMessageParse
         end
 
         on /^\/hibiki@jpEEWBot[ ]?(.+)?/ do |a|
-          Ping.handle(bot, a)
+          Hibiki.handle(bot, a)
         end
 
+        on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
+          Command.handle(bot, a)
+        end
 
         on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
-          @list = []
           load './lib/bot_message_parse.rb'
+          Find.find('./lib/command') { |f| load f if !File.directory?(f) }
           BotMessageSender.new(bot).send_message("成功.")  
         end
 
