@@ -11,7 +11,7 @@ class Hibiki
             infos = JSON.parse(res.body)
             episode_id = infos["episode"]["video"]["id"]
           rescue => e
-            puts e
+            puts e.message
           end
           begin
             additional_episode_id = infos["episode"]["additional_video"]["id"]
@@ -19,7 +19,7 @@ class Hibiki
             additional_episode_id = nil
           end
           begin
-            bot.api.send_message(chat_id: message.chat.id, text: "[Hibiki] 搜索关键词:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}, #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}" end }")
+            bot.api.send_message(chat_id: message.chat.id, text: "[Hibiki] 搜索:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}, #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}" end }")
           rescue
           end
     end
