@@ -21,7 +21,7 @@ class Hibiki
             additional_episode_id = nil
           end
           begin
-            bot.api.send_message(chat_id: message.chat.id, text: "[Hibiki] 搜索:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}, #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}" end }")
+            BotMessageSender.new(bot).send_message("[Hibiki] 搜索:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}, #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}" end }")
           rescue
           end
     end
@@ -36,5 +36,6 @@ class Hibiki
             'X-Requested-With' => 'XMLHttpRequest',
             'Origin' => 'http://hibiki-radio.jp'
         )
+        return @a
     end
 end
