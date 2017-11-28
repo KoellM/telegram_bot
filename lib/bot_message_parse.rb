@@ -48,9 +48,9 @@ class BotMessageParse
           when 0
             yield
           when 1
-            yield $1
+            yield ($1.to_s)
           when 2
-            yield $1, $2
+            yield ($1.to_s), ($2.to_s)
           end
         end
       end

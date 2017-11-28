@@ -8,8 +8,8 @@ class Hibiki
             return
         end
         begin
-            radio_name = a[0]
-            res = get_api("https://vcms-api.hibiki-radio.jp/api/v1/programs/#{radio_name}")
+            radio_name = a
+            res = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/programs/#{radio_name}")
             infos = JSON.parse(res.body)
             episode_id = infos["episode"]["video"]["id"]
           rescue => e
@@ -37,6 +37,5 @@ class Hibiki
             'X-Requested-With' => 'XMLHttpRequest',
             'Origin' => 'http://hibiki-radio.jp'
         )
-        return @a
     end
 end
