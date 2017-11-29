@@ -37,13 +37,13 @@ class Hibiki
                 -y \
                 -i #{Shellwords.escape(additional_url)} \
                 -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                ./#{Shellwords.escape(radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}-additional.mp4"
+                ./#{Shellwords.escape(BotConfig.save_path + '/' + radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}-additional.mp4"
                 begin
                     output = `#{arg}`
                     exit_status = $?
                     [exit_status, output]
                     BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} additional下载完成. #{output}(#{exit_status})")
-                    BotMessageSender.new(bot).send_video("./#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}-additional.mp4", "video/mp4")
+                    BotMessageSender.new(bot).send_video("#{BotConfig.save_path}/#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}-additional.mp4", "video/mp4")
                 rescue => e
                     exit_status, output = 0, e.to_s
                 end
@@ -53,13 +53,13 @@ class Hibiki
                 -y \
                 -i #{Shellwords.escape(url)} \
                 -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                ./#{Shellwords.escape(radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}.mp4"
+                ./#{Shellwords.escape(BotConfig.save_path + '/' + radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}.mp4"
                 begin
                     output = `#{arg}`
                     exit_status = $?
                     [exit_status, output]
                     BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} 下载完成. #{output}(#{exit_status})")
-                    BotMessageSender.new(bot).send_video("./#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}.mp4", "video/mp4")
+                    BotMessageSender.new(bot).send_video("#{BotConfig.save_path}/#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}.mp4", "video/mp4")
                 rescue => e
                     exit_status, output = 0, e.to_s
                 end
