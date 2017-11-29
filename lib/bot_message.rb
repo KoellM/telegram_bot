@@ -13,4 +13,8 @@ class BotMessageSender
     def send_photo(filename, type)
         bot.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(filename, type))
     end
+
+    def send_video(filename, type)
+        bot.api.send_video(chat_id: message.chat.id, video: Faraday::UploadIO.new(filename, type))
+    end
 end

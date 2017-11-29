@@ -1,14 +1,18 @@
 require 'json'
 require 'mechanize'
+require 'uri'
+require 'shellwords'
 class Hibiki
     def self.handle(bot, a)
         message = bot[:message]
+        d = a.match(/(.*)[ ](.*)/)
         if a.nil?
-            BotMessageSender.new(bot).send_message("使用方法:\n/hibiki [radio_name]")
+            BotMessageSender.new(bot).send_message("使用方法:\n/hibiki [radio_name] [download|ID]\n如果第二个参数为有效的ID，将会尝试直接下载该ID的节目.")
             return
         end
         begin
             radio_name = a
+            radio_name = d[1] if !d.nil?
             infos = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/programs/#{radio_name}")
             episode_id = infos["episode"]["video"]["id"]
           rescue => e
@@ -22,7 +26,47 @@ class Hibiki
           begin
             url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{episode_id}")["playlist_url"]
             additional_url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{additional_episode_id}")["playlist_url"] if !additional_episode_id.nil?
-            BotMessageSender.new(bot).send_message("[Hibiki] 搜索:#{radio_name} 结果: \n #{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}(#{url}), #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}(#{additional_url})" end }")
+            if d.nil?
+                BotMessageSender.new(bot).send_message("[Hibiki] 搜索:#{radio_name} 结果: \n#{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}(#{url}), #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}(#{additional_url})" end }")
+            elsif d[2].match?(/download|d|ダウンロード|下载/)
+                # download
+                BotMessageSender.new(bot).send_message("[Hibiki] 开始下载: #{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}")
+                if !additional_episode_id.nil?
+                arg = "ffmpeg\
+                -loglevel error \
+                -y \
+                -i #{Shellwords.escape(additional_url)} \
+                -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
+                ./#{Shellwords.escape(radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}-additional.mp4"
+                begin
+                    output = `#{arg}`
+                    exit_status = $?
+                    [exit_status, output]
+                    BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} additional下载完成. #{output}(#{exit_status})")
+                    BotMessageSender.new(bot).send_video("./#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}-additional.mp4", "video/mp4")
+                rescue => e
+                    exit_status, output = 0, e.to_s
+                end
+            end
+                arg = "ffmpeg\
+                -loglevel error \
+                -y \
+                -i #{Shellwords.escape(url)} \
+                -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
+                ./#{Shellwords.escape(radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}.mp4"
+                begin
+                    output = `#{arg}`
+                    exit_status = $?
+                    [exit_status, output]
+                    BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} 下载完成. #{output}(#{exit_status})")
+                    BotMessageSender.new(bot).send_video("./#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}.mp4", "video/mp4")
+                rescue => e
+                    exit_status, output = 0, e.to_s
+                end
+            else
+                # TODO
+                # 尝试直接下载
+            end
           rescue => e
             puts e.message
           end

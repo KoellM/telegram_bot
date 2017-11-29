@@ -20,8 +20,10 @@ class BotMessageParse
           Version.handle(bot, a)
         end
 
-        on /^\/hibiki@jpEEWBot[ ]?(.+)?/ do |a|
-          Hibiki.handle(bot, a)
+        on /^\/hibiki@jpEEWBot[ ]?(.+)?/ do |a, d|
+          fork do
+            Hibiki.handle(bot, a)
+          end
         end
 
         on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
@@ -48,9 +50,9 @@ class BotMessageParse
           when 0
             yield
           when 1
-            yield ($1.to_s)
+            yield $1
           when 2
-            yield ($1.to_s), ($2.to_s)
+            yield $1, $2
           end
         end
       end
