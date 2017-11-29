@@ -33,7 +33,7 @@ class BotMessageParse
         on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
           load './lib/bot_message_parse.rb'
           Find.find('./lib/command') { |f| load f if !File.directory?(f) }
-          BotMessageSender.new(bot).send_message("成功.")  
+          BotMessageSender.new(bot).send_message("成功.\n版本: #{BotConfig.version}")  
         end
 
         on(/(https?):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/) do |a|
