@@ -27,7 +27,7 @@ class Hibiki
             url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{episode_id}")["playlist_url"]
             additional_url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{additional_episode_id}")["playlist_url"] if !additional_episode_id.nil?
             if d.nil?
-                BotMessageSender.new(bot).send_message("[Hibiki] 搜索:#{radio_name} 结果: \n#{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n#{infos["description"]}\n本体ID: #{episode_id}(#{url}), #{unless (additional_episode_id.nil?) then "楽屋裏ID: #{additional_episode_id}(#{additional_url})" end }")
+                BotMessageSender.new(bot).send_message("[Hibiki] 搜索:#{radio_name} 结果: \n#{infos["episode"]["program_name"]} #{infos["episode"]["name"]}(#{infos["episode"]["updated_at"]})\n\n#{infos["description"]}\n本体ID: #{episode_id}(#{url})#{unless (additional_episode_id.nil?) then "\n楽屋裏ID: #{additional_episode_id}(#{additional_url})" end }")
             elsif d[2].match?(/download|d|ダウンロード|下载/)
                 # download
                 BotMessageSender.new(bot).send_message("[Hibiki] 开始下载: #{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}")

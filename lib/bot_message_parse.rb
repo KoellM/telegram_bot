@@ -20,7 +20,7 @@ class BotMessageParse
           Version.handle(bot, a)
         end
 
-        on /^\/hibiki@jpEEWBot[ ]?(.+)?/ do |a, d|
+        on /^\/hibiki@jpEEWBot[ ]?(.+)?/ do |a|
           fork do
             Hibiki.handle(bot, a)
           end
