@@ -6,7 +6,7 @@ class Hibiki
     def self.handle(bot, a)
         message = bot[:message]
         if a.nil?
-            BotMessageSender.new(bot).send_message("使用方法:\n/hibiki [radio_name] [download|ID]\n如果第二个参数为有效的ID，将会尝试直接下载该ID的节目.")
+            BotMessageSender.new(bot).send_message("使用方法:\n/hibiki [radio_name] [+download]")
             return
         end
         d = a.match(/(.*)[ ](.*)/)        
