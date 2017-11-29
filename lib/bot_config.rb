@@ -2,7 +2,9 @@ require 'yaml'
 
 class BotConfig
     def self.version
-        "1.0"
+        version = YAML::load(IO.read('config/config.yml'))['version']
+        commit_id = `git rev-parse --short HEAD`
+        "#{version}-#{commit_id}"
     end
 
     def self.save_path
