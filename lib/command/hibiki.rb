@@ -45,7 +45,8 @@ class Hibiki
                     BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} additional下载完成. #{output}(#{exit_status})")
                     BotMessageSender.new(bot).send_video("#{BotConfig.save_path}/#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"]}-additional.mp4", "video/mp4")
                 rescue => e
-                    exit_status, output = 0, e.to_s
+                    exit_status, output = 0
+                    p e
                 end
             end
                 arg = "ffmpeg\
