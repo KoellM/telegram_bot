@@ -67,7 +67,6 @@ class Hibiki
                 end
             else
                 # TODO
-                # 尝试直接下载
             end
           rescue => e
             puts e.message
