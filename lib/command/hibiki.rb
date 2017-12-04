@@ -50,7 +50,8 @@ class Hibiki
                             BotMessageSender.new(bot).send_video("#{save_path}-additional.mp4", "video/mp4")
                         rescue => e
                             exit_status, output = 0
-                            p e
+                            puts e.message
+                            puts e.backtrace.join("\n")
                         end
                     end
                 end
@@ -70,7 +71,9 @@ class Hibiki
                         BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} 下载完成. #{output}(#{exit_status})")
                         BotMessageSender.new(bot).send_video("#{save_path}.mp4", "video/mp4")
                     rescue => e
-                        exit_status, output = 0, e.to_s
+                        exit_status, output = 0
+                        puts e.message
+                        puts e.backtrace.join("\n")
                     end
                 end
             else

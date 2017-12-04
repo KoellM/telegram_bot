@@ -20,7 +20,7 @@ loop do
       end
     end
   rescue => e
-    logger.error("Error: #{e.message}")
+    logger.error("Error: #{e.message}\n#{e.backtrace.join("\n")}")
   end
   puts "60秒后再连."
   sleep 60
