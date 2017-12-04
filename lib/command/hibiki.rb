@@ -70,6 +70,7 @@ class Hibiki
             end
           rescue => e
             puts e.message
+            puts e.backtrace.join("\n")
           end
     end
 
