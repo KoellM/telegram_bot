@@ -33,37 +33,45 @@ class Hibiki
                 BotMessageSender.new(bot).send_message("[Hibiki] 开始下载: #{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}")
                 save_path = "#{BotConfig.save_path}/#{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}"
                 if !additional_episode_id.nil?
-                arg = "ffmpeg\
-                -loglevel error \
-                -y \
-                -i #{Shellwords.escape(additional_url)} \
-                -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                #{Shellwords.escape("#{save_path}-additional.mp4")}"
-                begin
-                    output = `#{arg}`
-                    exit_status = $?
-                    [exit_status, output]
-                    BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} additional下载完成. #{output}(#{exit_status})")
-                    BotMessageSender.new(bot).send_video("#{save_path}-additional.mp4", "video/mp4")
-                rescue => e
-                    exit_status, output = 0
-                    p e
+                    if (File.file?("#{save_path}-additional.mp4"))
+                        BotMessageSender.new(bot).send_video("#{save_path}-additional.mp4", "video/mp4") 
+                    else                   
+                        arg = "ffmpeg\
+                        -loglevel error \
+                        -y \
+                        -i #{Shellwords.escape(additional_url)} \
+                        -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
+                        #{Shellwords.escape("#{save_path}-additional.mp4")}"
+                        begin
+                            output = `#{arg}`
+                            exit_status = $?
+                            [exit_status, output]
+                            BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} additional下载完成. #{output}(#{exit_status})")
+                            BotMessageSender.new(bot).send_video("#{save_path}-additional.mp4", "video/mp4")
+                        rescue => e
+                            exit_status, output = 0
+                            p e
+                        end
+                    end
                 end
-            end
-                arg = "ffmpeg\
-                -loglevel error \
-                -y \
-                -i #{Shellwords.escape(url)} \
-                -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                #{Shellwords.escape("#{save_path}.mp4")}"
-                begin
-                    output = `#{arg}`
-                    exit_status = $?
-                    [exit_status, output]
-                    BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} 下载完成. #{output}(#{exit_status})")
+                if File.file?("#{save_path}.mp4"
                     BotMessageSender.new(bot).send_video("#{save_path}.mp4", "video/mp4")
-                rescue => e
-                    exit_status, output = 0, e.to_s
+                else                
+                    arg = "ffmpeg\
+                    -loglevel error \
+                    -y \
+                    -i #{Shellwords.escape(url)} \
+                    -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
+                    #{Shellwords.escape("#{save_path}.mp4")}"
+                    begin
+                        output = `#{arg}`
+                        exit_status = $?
+                        [exit_status, output]
+                        BotMessageSender.new(bot).send_message("[Hibiki] #{radio_name} 下载完成. #{output}(#{exit_status})")
+                        BotMessageSender.new(bot).send_video("#{save_path}.mp4", "video/mp4")
+                    rescue => e
+                        exit_status, output = 0, e.to_s
+                    end
                 end
             else
                 # TODO
