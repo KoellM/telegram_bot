@@ -37,7 +37,7 @@ class Hibiki
                 -y \
                 -i #{Shellwords.escape(additional_url)} \
                 -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                ./#{Shellwords.escape(BotConfig.save_path + '/' + radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}-additional.mp4"
+                ./#{Shellwords.escape(BotConfig.save_path}/#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}-additional.mp4"
                 begin
                     output = `#{arg}`
                     exit_status = $?
@@ -54,7 +54,7 @@ class Hibiki
                 -y \
                 -i #{Shellwords.escape(url)} \
                 -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                ./#{Shellwords.escape(BotConfig.save_path + '/' + radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}.mp4"
+                ./#{Shellwords.escape(BotConfig.save_path}/#{radio_name + '-' + infos["episode"]["program_name"] + '-' + infos["episode"]["name"])}.mp4"
                 begin
                     output = `#{arg}`
                     exit_status = $?
