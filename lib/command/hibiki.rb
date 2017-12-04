@@ -33,7 +33,7 @@ class Hibiki
                 BotMessageSender.new(bot).send_message("[Hibiki] 开始下载: #{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}")
                 save_path = "#{BotConfig.save_path}/#{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}"
                 if !additional_episode_id.nil?
-                    if (File.file?("#{save_path}-additional.mp4"))
+                    if(File.file?("#{save_path}-additional.mp4"))
                         BotMessageSender.new(bot).send_video("#{save_path}-additional.mp4", "video/mp4") 
                     else                   
                         arg = "ffmpeg\
@@ -54,9 +54,9 @@ class Hibiki
                         end
                     end
                 end
-                if File.file?("#{save_path}.mp4"
+                if (File.file?("#{save_path}.mp4"))
                     BotMessageSender.new(bot).send_video("#{save_path}.mp4", "video/mp4")
-                else                
+                else
                     arg = "ffmpeg\
                     -loglevel error \
                     -y \
