@@ -38,7 +38,7 @@ class Hibiki
                 -y \
                 -i #{Shellwords.escape(additional_url)} \
                 -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                ./#{Shellwords.escape("#{save_path}-additional.mp4")
+                ./#{Shellwords.escape("#{save_path}-additional.mp4")}"
                 begin
                     output = `#{arg}`
                     exit_status = $?
@@ -55,7 +55,7 @@ class Hibiki
                 -y \
                 -i #{Shellwords.escape(url)} \
                 -vcodec copy -acodec copy -bsf:a aac_adtstoasc\
-                ./#{Shellwords.escape("#{save_path}.mp4")
+                ./#{Shellwords.escape("#{save_path}.mp4")}"
                 begin
                     output = `#{arg}`
                     exit_status = $?
