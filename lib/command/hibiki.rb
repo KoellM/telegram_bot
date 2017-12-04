@@ -74,7 +74,7 @@ class Hibiki
                     end
                 end
             else
-                # TODO
+                # TODO: ID下载
             end
           rescue => e
             puts e.message
