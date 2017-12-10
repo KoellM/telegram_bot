@@ -27,7 +27,9 @@ class BotMessageParse
         end
 
         on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
-          Command.handle(bot, a)
+          fork do
+            Command.handle(bot, a)
+          end
         end
 
         on /^\/reload@jpEEWBot[ ]?(.+)?/ do |a|
