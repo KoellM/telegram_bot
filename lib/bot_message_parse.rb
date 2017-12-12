@@ -39,7 +39,7 @@ class BotMessageParse
               time = Time.parse(end_at + " +09:00")
               time.localtime("+08:00")
               str = "服务器状态:#{result_code} 版本: #{version} 预计结束时间:#{time}#{message}"
-              BotMessageSender.new(bot).send_message("成功.\n版本: #{BotConfig.version}")
+              BotMessageSender.new(bot).send_message(str)
             rescue => e
               BotMessageSender.new(bot).send_message("查询失败: #{e.message}")
             end
