@@ -26,6 +26,26 @@ class BotMessageParse
           end
         end
 
+        on /^\/kirafan/ do
+          fork do
+            require 'faraday'
+            begin
+              response = Faraday.get('https://krr-prd.star-api.com/api/app/version/get?platform=1&version=1.0.2')
+              json = JSON.parse(response.body)
+              result_code = json["resultCode"]
+              message = json["message"]
+              version = json["serverVersion"]
+              end_at = json["endAt"]
+              time = Time.parse(end_at + " +09:00")
+              time.localtime("+08:00")
+              str = "服务器状态:#{result_code} 版本: #{version} 预计结束时间:#{time}#{message}"
+              BotMessageSender.new(bot).send_message("成功.\n版本: #{BotConfig.version}")
+            rescue => e
+              BotMessageSender.new(bot).send_message("查询失败: #{e.message}")
+            end
+          end
+        end
+
         on /^\/command@jpEEWBot[ ]?(.+)?/ do |a|
           fork do
             Command.handle(bot, a)
