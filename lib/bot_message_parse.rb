@@ -26,7 +26,7 @@ class BotMessageParse
           end
         end
 
-        on /^\/kirafan/ do
+        on /开服/ do
           fork do
             require 'faraday'
             begin
