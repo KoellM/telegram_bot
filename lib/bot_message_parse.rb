@@ -34,7 +34,7 @@ class BotMessageParse
               json = JSON.parse(response.body)
               result_code = json["resultCode"]
               if result_code == 0
-                str = "开服了！版本: #{version}\nabVer: #{json["abVer"]}#{json["message"]}"
+                str = "开服了！版本: #{json["serverVersion"]}\nabVer: #{json["abVer"]}#{json["message"]}"
               elsif result_code == 10
                 message = json["message"]
                 version = json["serverVersion"]
