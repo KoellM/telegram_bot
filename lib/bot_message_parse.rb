@@ -30,7 +30,7 @@ class BotMessageParse
           fork do
             require 'faraday'
             begin
-              response = Faraday.get('https://krr-prd.star-api.com/api/app/version/get?platform=1&version=1.0.2')
+              response = Faraday.get('https://krr-prd.star-api.com/api/app/version/get?platform=1&version=1.0.3')
               json = JSON.parse(response.body)
               result_code = json["resultCode"]
               if result_code == 0
