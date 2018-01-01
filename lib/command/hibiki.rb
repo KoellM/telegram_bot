@@ -44,10 +44,10 @@ class Hibiki
                     end
                 end
                 if (File.file?("#{save_path}.mp4"))
-                    self.upload_qiniu("#{save_path}.mp4"), "#{save_name}.mp4")
+                    self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4")
                 else
                     exit_status, output = self.download(url, save_path)
-                    self.upload_qiniu("#{save_path}.mp4"), "#{save_name}.mp4") if exit_status == 0
+                    self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4") if exit_status == 0
                 end
             else
                 # TODO: ID下载
