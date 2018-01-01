@@ -46,7 +46,7 @@ class Hibiki
                 if (File.file?("#{save_path}.mp4"))
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4")
                 else
-                    exit_status, output = self.download(url, save_path)
+                    exit_status, output = self.download(url, "#{save_path}.mp4")
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4") if exit_status == 0
                     BotMessageSender.new(bot).send_message("文件已加入下载列表, http://koell.qiniudn.com/#{save_path}.mp4")                    
                 end
