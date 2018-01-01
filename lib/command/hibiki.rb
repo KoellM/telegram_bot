@@ -73,10 +73,10 @@ class Hibiki
 
     def self.upload_qiniu(path, filename)
         # 七牛初始化
-        Qiniu.establish_connection!(access_key: Config.qiniu_app_access_key>,
-        secret_key: Config.qiniu_app_secret_key>,
-        :block_size      => 1024*1024*4,
-        :chunk_size      => 1024*1024*4)
+        Qiniu.establish_connection!(access_key: Config.qiniu_app_access_key,
+        secret_key: Config.qiniu_app_secret_key,
+        :block_size => 1024*1024*4,
+        :chunk_size => 1024*1024*4)
         # bucket name
         bucket = Config.qiniu_app_bucket
 
