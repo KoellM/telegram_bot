@@ -37,17 +37,18 @@ class Hibiki
                 if !additional_episode_id.nil?
                     if(File.file?("#{save_path}-additional.mp4"))
                         qiniu = self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4")
-                        p qiniu
                     else                   
                         exit_status, output = self.download(additional_episode_id, save_path)
                         self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4") if exit_status == 0
                     end
+                    BotMessageSender.new(bot).send_message("文件已加入下载列表, http://koell.qiniudn.com/#{save_path}-additional.mp4")
                 end
                 if (File.file?("#{save_path}.mp4"))
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4")
                 else
                     exit_status, output = self.download(url, save_path)
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4") if exit_status == 0
+                    BotMessageSender.new(bot).send_message("文件已加入下载列表, http://koell.qiniudn.com/#{save_path}.mp4")                    
                 end
             else
                 # TODO: ID下载
