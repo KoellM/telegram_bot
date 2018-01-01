@@ -35,20 +35,19 @@ class Hibiki
                 save_name = "#{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}"
                 save_path = "#{BotConfig.save_path}/#{save_name}"
                 if !additional_episode_id.nil?
-                    # additional下载
                     if(File.file?("#{save_path}-additional.mp4"))
-                        qiniu = self.upload_qiniu(path, "#{save_name}-additional.mp4")
+                        qiniu = self.upload_qiniu(save_path, "#{save_name}-additional.mp4")
                         p qiniu
                     else                   
                         exit_status, output = self.download(additional_episode_id, save_path)
-                        self.upload_qiniu(path, "#{save_name}-additional.mp4") if exit_status == 0
+                        self.upload_qiniu(save_path, "#{save_name}-additional.mp4") if exit_status == 0
                     end
                 end
                 if (File.file?("#{save_path}.mp4"))
-                    self.upload_qiniu(path, "#{save_name}.mp4")
+                    self.upload_qiniu(save_path, "#{save_name}.mp4")
                 else
                     exit_status, output = self.download(url, save_path)
-                    self.upload_qiniu(path, "#{save_name}.mp4") if exit_status == 0
+                    self.upload_qiniu(save_path, "#{save_name}.mp4") if exit_status == 0
                 end
             else
                 # TODO: ID下载
