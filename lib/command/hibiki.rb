@@ -14,13 +14,14 @@ class Hibiki
         begin
             # 尝试获取节目
             radio_name = a
+            # 下载
             radio_name = d[1] if !d.nil?
             infos = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/programs/#{radio_name}")
             episode_id = infos["episode"]["video"]["id"]
         rescue => e
             puts e.message
         end
-        
+
         begin  
             additional_episode_id = infos["episode"]["additional_video"]["id"]
         rescue
