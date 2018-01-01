@@ -17,10 +17,14 @@ class Hibiki
             radio_name = d[1] if !d.nil?
             infos = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/programs/#{radio_name}")
             episode_id = infos["episode"]["video"]["id"]
-          rescue => e
+        rescue => e
             puts e.message
-          end
-          additional_episode_id = infos["episode"]["additional_video"]["id"]
+        end
+        begin  
+            additional_episode_id = infos["episode"]["additional_video"]["id"]
+        rescue
+            additional_episode_id = nil
+        end
           
           begin
             url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{episode_id}")["playlist_url"]
@@ -34,7 +38,7 @@ class Hibiki
                 # 保存目录
                 save_name = "#{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}"
                 save_path = "#{BotConfig.save_path}/#{save_name}"
-                
+
                 if !additional_episode_id.nil?
                     if(File.file?("#{save_path}-additional.mp4"))
                         qiniu = self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4")
