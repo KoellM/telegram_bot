@@ -76,7 +76,7 @@ class Hibiki
         Qiniu.establish_connection!(access_key: Config.qiniu_app_access_key>,
         secret_key: Config.qiniu_app_secret_key>,
         :block_size      => 1024*1024*4,
-        :chunk_size      => 1024*1024*4,)
+        :chunk_size      => 1024*1024*4)
         # bucket name
         bucket = Config.qiniu_app_bucket
 
