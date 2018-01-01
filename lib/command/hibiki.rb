@@ -20,6 +20,7 @@ class Hibiki
         rescue => e
             puts e.message
         end
+        
         begin  
             additional_episode_id = infos["episode"]["additional_video"]["id"]
         rescue
