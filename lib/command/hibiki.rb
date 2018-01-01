@@ -48,7 +48,7 @@ class Hibiki
                         exit_status, output = self.download(additional_episode_id, save_path)
                         self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4") if exit_status == 0
                     end
-                    BotMessageSender.new(bot).send_message("本体, #{URI.escape("http://koell.qiniudn.com/#{save_name}-additional.mp4")}")
+                    BotMessageSender.new(bot).send_message("楽屋裏, #{URI.escape("http://koell.qiniudn.com/#{save_name}-additional.mp4")}")
                 end
                 if (File.file?("#{save_path}.mp4"))
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4")
@@ -56,7 +56,7 @@ class Hibiki
                     exit_status, output = self.download(url, "#{save_path}.mp4")
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4") if exit_status == 0
                 end
-                BotMessageSender.new(bot).send_message("楽屋裏, #{URI.escape("http://koell.qiniudn.com/#{save_name}.mp4")}")                                
+                BotMessageSender.new(bot).send_message("本体, #{URI.escape("http://koell.qiniudn.com/#{save_name}.mp4")}")                                
             else
                 # TODO: ID下载
             end
