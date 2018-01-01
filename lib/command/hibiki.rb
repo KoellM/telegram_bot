@@ -28,7 +28,7 @@ class Hibiki
             additional_episode_id = nil
         end
           
-          begin
+        begin
             url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{episode_id}")["playlist_url"]
             additional_url = self.get_api("https://vcms-api.hibiki-radio.jp/api/v1/videos/play_check?video_id=#{additional_episode_id}")["playlist_url"] if !additional_episode_id.nil?
             if d.nil?
@@ -48,7 +48,7 @@ class Hibiki
                         exit_status, output = self.download(additional_episode_id, save_path)
                         self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4") if exit_status == 0
                     end
-                    BotMessageSender.new(bot).send_message("文件已加入下载列表, #{URI.escape("http://koell.qiniudn.com/#{save_name}-additional.mp4")}")
+                    BotMessageSender.new(bot).send_message("本体, #{URI.escape("http://koell.qiniudn.com/#{save_name}-additional.mp4")}")
                 end
                 if (File.file?("#{save_path}.mp4"))
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4")
@@ -56,14 +56,14 @@ class Hibiki
                     exit_status, output = self.download(url, "#{save_path}.mp4")
                     self.upload_qiniu("#{save_path}.mp4", "#{save_name}.mp4") if exit_status == 0
                 end
-                BotMessageSender.new(bot).send_message("文件已加入下载列表, #{URI.escape("http://koell.qiniudn.com/#{save_name}.mp4")}")                                
+                BotMessageSender.new(bot).send_message("楽屋裏, #{URI.escape("http://koell.qiniudn.com/#{save_name}.mp4")}")                                
             else
                 # TODO: ID下载
             end
-          rescue => e
+        rescue => e
             puts e.message
             puts e.backtrace.join("\n")
-          end
+        end
     end
 
     def self.download(url, save_path)
