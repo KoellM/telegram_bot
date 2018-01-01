@@ -34,6 +34,7 @@ class Hibiki
                 # 保存目录
                 save_name = "#{radio_name}-#{infos["episode"]["program_name"]}-#{infos["episode"]["name"]}"
                 save_path = "#{BotConfig.save_path}/#{save_name}"
+                
                 if !additional_episode_id.nil?
                     if(File.file?("#{save_path}-additional.mp4"))
                         qiniu = self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4")
