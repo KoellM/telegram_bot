@@ -45,7 +45,7 @@ class Hibiki
                     if(File.file?("#{save_path}-additional.mp4"))
                         qiniu = self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4")
                     else
-                        exit_status, output = self.download(additional_url, save_path)
+                        exit_status, output = self.download(additional_url, "#{save_path}.mp4")
                         self.upload_qiniu("#{save_path}-additional.mp4", "#{save_name}-additional.mp4") if exit_status == 0
                     end
                     BotMessageSender.new(bot).send_message("楽屋裏, #{URI.escape("http://koell.qiniudn.com/#{save_name}-additional.mp4")}")
